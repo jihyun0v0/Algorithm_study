@@ -16,7 +16,7 @@ int main(){
             c[i][j] = (c[i-1][j-1]+c[i-1][j])%10007;
         }
     }
-
+1
     int sum=0;
     n=m/2;
     for(int i=0;i<=n;i++){
