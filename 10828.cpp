@@ -1,5 +1,5 @@
 //
-//  tmp.cpp
+//  10828.cpp
 //  algorithm_study
 //
 //  Created by Jihyun Kyoung on 2023/07/31
