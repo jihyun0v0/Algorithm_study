@@ -35,3 +35,13 @@
 *.DS_Store
 *.hpp
 *.xcodeproj
+
+#
+*.dSYM
+*.plist
+
+#ignore all
+*
+
+#
+!*.cpp
