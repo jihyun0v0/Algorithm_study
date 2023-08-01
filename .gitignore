@@ -41,7 +41,7 @@
 *.plist
 
 #ignore all
-*
+#*
 
 #
 !*.cpp
