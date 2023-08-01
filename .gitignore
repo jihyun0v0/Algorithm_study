@@ -41,7 +41,7 @@
 *.plist
 
 #ignore all
-#*
+algorithm_study/2023/*
 
 #
-!*.cpp
+!algorithm_study/2023/*.cpp
