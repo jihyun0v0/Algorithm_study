@@ -15,7 +15,6 @@ int main(){
     queen(arr, 0, num);
     cout<<sum<<endl;
 }
-
 void queen(int* arr, int h, int n){
     int* pallet= new int[n];
     for(int i=0;i<n;i++){
