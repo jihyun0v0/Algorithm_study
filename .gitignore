@@ -36,12 +36,14 @@
 *.hpp
 *.xcodeproj
 
-#
+#extra
 *.dSYM
 *.plist
 
-#ignore all
-algorithm_study/2023/*
+#CMAKE
+:wq!
+CMakeFiles/
+CMakeLists.txt
 
-#
-!algorithm_study/2023/*.cpp
+#exe files
+build/
