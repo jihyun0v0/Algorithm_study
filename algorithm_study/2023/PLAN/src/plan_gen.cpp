@@ -3,6 +3,8 @@
 #include <string>
 #include <map>
 #include <random>
+#include <fstream>
+#include<string>
 
 using namespace std;
 vector<int> choose_menu(string* names, map<string,vector<int> > todo_map);
@@ -35,7 +37,7 @@ int main(){
             todo[12][k++] =todo[i][j++];
     }
 
-    for(int i=0;i<12;i++){
+    for(int i=0;i<13;i++){
         vector<int> *tmp = new vector<int>;
         int j=0;
         while(todo[i][j]!=0){
@@ -44,9 +46,16 @@ int main(){
         todo_map.insert(pair<string, vector<int> >(names[i], *tmp));
         delete tmp;
     }
-   
-    FILE* fp = fopen("/Users/jihyunkyoung/Documents/Alogorithm_study/Algorithm_study/algorithm_study/2023/PLAN/file/todo", "wb");
-    fwrite(&todo_map, sizeof(todo_map),1, fp);
-    fclose(fp);
+   for(int i=0;i<13;i++){
 
+    string str= "/Users/jihyunkyoung/Documents/Alogorithm_study/Algorithm_study/algorithm_study/2023/PLAN/file/todo";
+    str = str+ to_string(i);
+    std::ofstream out(str);
+    vector<int> vc = todo_map[names[i]];
+    out<<"{";
+    vector<int>::iterator itr;
+    for(itr = vc.begin();(itr)!=vc.end();itr++)
+        out<<to_string(*itr)<<", ";
+    out<<"}";
+}
 }
