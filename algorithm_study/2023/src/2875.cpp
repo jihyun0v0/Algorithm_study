@@ -1,3 +1,9 @@
+//
+//  2875.cpp
+//  algorithm_study
+//
+//  Created by Jihyun Kyoung on 2023/08/08
+//
 #include <iostream>
 #include <cmath>
 using namespace std;
