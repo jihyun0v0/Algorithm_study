@@ -5,30 +5,51 @@
 //  Created by Jihyun Kyoung on 2023/08/11
 //
 #include<iostream>
-using namespace std;
+#include <cstdio>
+using namespace std; 
 short int* arr;
 int* num;
+int idx, ridx;
+char buffer[1<<20];
 int check(int a, int b, int n, int N);
+static inline char read();
+static inline int readint();
+
 int main(){
     int N;
-    cin>>N;
+    N = readint();
     int tmp[4]={0,};
     num = &tmp[1];
     arr = new short int[N*N];
-    for(int i=0;i<N;i++){
+    for(int i=0;i<N;i++)
         for(int j=0;j<N;j++)
-            scanf("%d", &arr[i*N+j]);
-            // cin>>arr[i*N+j];
-    }
-    check(0,0, N,N);
-    cout<<num[-1]<<endl;
-    cout<<num[0]<<endl;
-    cout<<num[1]<<endl;
+            arr[i*N+j]=readint();
     
-
+    num[check(0,0, N,N)]++;
+    for(int i=-1;i<2;i++)
+        cout<<num[i]<<endl;
 }
-// int getint() {
-// }
+
+static inline char read(){
+    if(ridx == idx){
+        ridx = fread(buffer, 1, 1<<20, stdin);
+        idx = buffer[ridx] = 0;
+    }
+    return buffer[idx++];
+}
+static inline int readint() {
+    int r =0;
+    bool n = 0;
+    char c = read();
+    while(c<33) 
+    c = read();
+    if(c == '-')n = 1, c=read();
+    while(c>=48&&c<=57){
+        r = r*10+(c&15);
+        c=read();
+    }
+    return n? -r:r;
+}
 
 int check(int a, int b, int n, int N){
     int chk_arr[9],chk_ind =0, same =1;
@@ -43,19 +64,18 @@ int check(int a, int b, int n, int N){
 
     chk_arr[6] = check(a+k*2, b, k, N); chk_arr[7] = check(a+k*2, b+k, k, N); chk_arr[8] = check(a+k*2, b+k*2, k, N);
 
-    for(int i = 1;i<n;i++)
+    for(int i = 1;i<9;i++)
         if(chk_arr[0] != chk_arr[i]){
             same = 0;
             break;
         }
     if(same==1&&chk_arr[0]!=2)
         return chk_arr[0];
-    else{
-        for(auto& o:chk_arr){
-            num[o] +=1;
-        }
+
+    for(auto& o:chk_arr){
+        num[o] +=1;
+    
         return 2;
     }
 }
-
 
