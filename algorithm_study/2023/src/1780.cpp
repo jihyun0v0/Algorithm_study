@@ -24,7 +24,6 @@ int main(){
     for(int i=0;i<N;i++)
         for(int j=0;j<N;j++)
             arr[i*N+j]=readint();
-    
     num[check(0,0, N,N)]++;
     for(int i=-1;i<2;i++)
         cout<<num[i]<<endl;
