@@ -30,9 +30,11 @@ static inline int readint() {
 }
 int main(){
     int a, b, c;
+    //for baekjoon input
     a = readint();
     b= readint();
     c = readint();
+    // // for human input
     // cin>>a;
     // cin>>b;
     // cin>>c;
