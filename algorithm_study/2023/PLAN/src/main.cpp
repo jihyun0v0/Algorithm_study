@@ -4,50 +4,58 @@
 #include <map>
 #include <random>
 #include <fstream>
+#include <sstream>
 #include <algorithm>
 using namespace std;
-
+void get_map();
 void get_vector(vector<int> &vc, int ind);
 void get_todo(string* names);
 void rewrite_file(vector<int> vc, int ind);
 void solved(string *names);
 void add_problem(string *names);
 void print_probs(string* names);
+void print_map();
 void print_vc(vector<int> vc);
-int main(){
-    std::string names[] = {"dp", "sort", "stack", "queue", "deck", "string", "etc",
-     "match", "graph", "sort2", "gridy", "sort3", "all"};
 
-    map<string, vector<int>> todo_map;
-    int menu;
+map<string, vector<int>> todo_map;
+string* names;
+int main(){
+    string name_tmp[]  ={"all", "deck", "dp", "etc", "graph", "gridy", "match", "queue",
+     "sort", "sort2", "sort3", "stack", "string"};
+    names = name_tmp;
+    vector<int> vc;
+    get_map();
+    get_vector(vc, 1);
+    print_vc(vc);
+    // int menu;
     
-    while(true){
-        printf("============================\nselect your menu: \n");
-        printf("1. get problems\n");
-        printf("2. solved problems\n");
-        printf("3. add problem\n");
-        printf("4. show problems\n");
-        printf("5. the end\n");
-        printf("=>");
-        cin>>menu;
+    // while(true){
+    //     printf("============================\nselect your menu: \n");
+    //     printf("1. get problems\n");
+    //     printf("2. solved problems\n");
+    //     printf("3. add problem\n");
+    //     printf("4. show problems\n");
+    //     printf("5. the end\n");
+    //     printf("=>");
+    //     cin>>menu;
         
-        switch(menu){
-            case 1:
-                get_todo(names);
-                break;
-            case 2:
-                solved(names);
-                break;
-            case 3: 
-                add_problem(names);
-                break;
-            case 4:
-                print_probs(names);
-                break;
-            case 5:
-                exit(0);
-        }
-    }
+    //     switch(menu){
+    //         case 1:
+    //             get_todo(names);
+    //             break;
+    //         case 2:
+    //             solved(names);
+    //             break;
+    //         case 3: 
+    //             add_problem(names);
+    //             break;
+    //         case 4:
+    //             print_probs(names);
+    //             break;
+    //         case 5:
+    //             exit(0);
+    //     }
+    // }
 }
 
 void get_todo(string* names){
@@ -90,25 +98,46 @@ void get_todo(string* names){
 
 }
 
+void get_map(){
+    string str= "/Users/jihyunkyoung/Documents/Alogorithm_study/Algorithm_study/algorithm_study/2023/PLAN/file/data.csv";
+    ifstream file(str);
+    if(!file.is_open()){
+        cerr<<"failed to open the file\n";
+        return;
+    }
+    string line;
+    while(getline(file, line)){
+        istringstream iss(line);
+        string name;
+        int value;
+        char comma;
+
+        //read the name
+        if(getline(iss, name, ',')){
+            vector<int> values;
+
+            //read the values
+            while(iss>>value>>comma){
+                values.push_back(value);
+            }
+
+
+            //store data
+            (todo_map)[name] = values;
+        }
+    }
+}
+
 // void solved(string* names, map<string,vector<int> > todo_map);
 void get_vector(vector<int> &vc, int ind){
-    string str= "/Users/jihyunkyoung/Documents/Alogorithm_study/Algorithm_study/algorithm_study/2023/PLAN/file/todo";
-    str= str+ to_string(ind);
-    ifstream in(str);
-    char tmp;
-
-    //read {
-    in.read(&tmp, 1);
-    string s;
-    while(in){
-        getline(in, s,',');
-        for(auto itr:s){
-        if(!isdigit(itr)&&itr!=' '){
-            return;
-        }
-       }   vc.push_back(stoi(s));
+    string vc_name = *(names+ind);
+    auto it = todo_map.find(vc_name);
+    if(it!=todo_map.end()){
+        vc = it->second;
     }
-    
+    else{
+        cerr<<"failed to get the vector. there is no such key"<<vc_name;
+    }
 }
 
 void solved(string *names){
@@ -149,6 +178,16 @@ void solved(string *names){
     printf("============================\ndo you want to continue?(1: yes, 2:no)\n=>");
     cin>>conti;
 }}
+
+void print_map(){
+    for(auto& entry:todo_map){
+            cout<<"Name: "<<entry.first<<", Values: {";
+            for(int value:entry.second){
+                cout<<value<<", ";
+            }
+            cout<<"}";
+        }
+}
 void print_vc(vector<int> vc){
     printf("============================\n");
     //print vc
