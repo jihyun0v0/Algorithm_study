@@ -8,6 +8,7 @@ int ind = -1;
 int totalStamp =0;
 int front;
 set<int> visited;
+set<int> visited_cur;
 int getGraph(int n, vector<vector<int>>& roads){
     char c;
     int i,j,front;
@@ -133,6 +134,46 @@ int getFront(int n, vector<vector<int>>& roads){
 
     return front;
 }
+bool isEnd(int n, vector<vector<int>> roads){
+    for(vector<vector<int>>::iterator itr = roads.begin();itr!=roads.end();itr++){
+        if(n == (*itr)[0])
+            return false;
+    }
+    return true;
+}
+int newDFS(int n,  vector<vector<int>> roads){
+    int flag = 0;
+    int answer = 0;
+    int num =0;
+    if(visited.size()>=n){
+        return 0;
+    }
+    int target = stack[ind--];
+    for(vector<vector<int>>::iterator itr = roads.begin();itr!=roads.end();itr++){
+        if(target == (*itr)[0]){
+            // for(int i =0;i<=height;i++){
+            //     if(stack[i] == (*itr)[1])
+            //         continue;
+            // }
+            if(visited.find(((*itr)[1]))!=visited.end()){
+                if(isEnd((*itr)[1], roads))
+                    flag = 0;
+                else
+                    flag = 1;
+                continue;
+            }
+            num++;
+            stack[++ind] = (*itr)[1];
+            visited.insert((*itr)[1]);
+            answer += newDFS(n, roads);
+            flag = 1;
+        }
+    }
+    if(flag == 0||num == 0){
+        answer ++;
+    }
+    return answer;
+}
 int solution(int n, vector<vector<int>> roads) {
     int answer = 0;
     //  front = getFront(roads);
@@ -144,13 +185,13 @@ int solution(int n, vector<vector<int>> roads) {
     // return answer;
     int flag = 0;
     front =1;
-    while(visited.size()<n){
-        front = getFront(n, roads);
+    // while(visited.size()<n){
+    //     front = getFront(n, roads);
         // front = 1;
-        visited.insert(front);
-        stack[++ind] = front;
-        answer += DFS(n, roads);
-    }
+    visited.insert(front);
+    stack[++ind] = front;
+    answer += newDFS(n, roads);
+    // }
     cout<<answer;
     return answer;
 }
