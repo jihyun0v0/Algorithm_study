@@ -78,7 +78,7 @@
         "valarray": "cpp"
     },
     "C_Cpp.default.compilerPath": "/usr/bin/clang",
-    "java.jdt.ls.java.home": "/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home"
+    //"java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home"
   // "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home",
   // "java.configuration.runtimes": [
   //     {
